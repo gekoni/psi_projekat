@@ -1,0 +1,37 @@
+<?php
+
+namespace Entity;
+
+/**
+ * User Model
+ *
+ * @Entity
+ * @Table(name="oblast")
+ */
+class Oblast {
+
+    /**
+     * @Id
+     * @Column(type="integer", nullable=false)
+     * @GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @Column(type="string", length=45, unique=false, nullable=true)
+     */
+    protected $naziv;
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getNaziv() {
+        return $this->naziv;
+    }
+
+    public function setNaziv($naziv) {
+        $this->naziv = $naziv;
+    }
+
+}
