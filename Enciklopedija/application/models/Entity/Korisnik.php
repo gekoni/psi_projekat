@@ -68,8 +68,20 @@ class Korisnik {
     protected $telefon;
 
     /**
-     * @OneToOne(targetEntity = "Uloga")
+     * @ManyToOne(targetEntity = "Uloga", inversedBy = "korisnici")
      */
     protected $uloga;
+    
+    /**
+     * @OneToMany(targetEntity = "Clanak", mappedBy = "clanci")
+     */
+    protected $clanci;
+    
+    /**
+     * @ManyToMany(targetEntity = "Oblast", mappedBy = "urednici")
+     */
+    protected $oblastii;
+    
+    
 }
 

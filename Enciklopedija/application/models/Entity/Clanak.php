@@ -38,19 +38,34 @@ class Clanak {
     protected $vreme;
 
     /**
-     * @Column(type="integer", unique=false, nullable=true)
+     * @Column(type = "integer", unique = false, nullable = true)
      */
     protected $brpregleda;
 
     /**
-     * @ManyToOne(targetEntity = "Korisnik")
+     * @ManyToOne(targetEntity = "Korisnik", inversedBy = "clanci")
      */
-    protected $korisnik_id;
+    protected $autor;
 
     /**
-     * @ManyToOne(targetEntity = "Oblast")
+     * @ManyToOne(targetEntity = "Oblast", inversedBy = "clanci")
      */
-    protected $oblast_id;
+    protected $oblast;
+    
+    /**
+     * @OneToMany(targetEntity = "Fajl", mappedBy = "clanak")
+     */
+    protected $fajlovi;
+    
+    /**
+     * @OneToMany(targetEntity = "Ocena", mappedBy = "clanak")
+     */
+    protected $ocene;
+    
+    /**
+     * @OneToMany(targetEntity = "Izmena", mappedBy = "clanak")
+     */
+    protected $izmene;
 
     public function getId() {
         return $this->id;
@@ -76,12 +91,16 @@ class Clanak {
         return $this->brpregleda;
     }
 
-    public function getKorisnik_id() {
-        return $this->korisnik_id;
+    public function getAutor() {
+        return $this->autor;
     }
 
-    public function getOblast_id() {
-        return $this->oblast_id;
+    public function getOblast() {
+        return $this->oblast;
+    }
+    
+    public function getIzmene() {
+        return $this->izmene;
     }
 
     public function setNaslov($naslov) {
@@ -104,12 +123,12 @@ class Clanak {
         $this->brpregleda = $brpregleda;
     }
 
-    public function setKorisnik_id($korisnik_id) {
-        $this->korisnik_id = $korisnik_id;
+    public function setAutor($autor) {
+        $this->autor = $autor;
     }
 
-    public function setOblast_id($oblast_id) {
-        $this->oblast_id = $oblast_id;
+    public function setOblast($oblast) {
+        $this->oblast = $oblast;
     }
 
 }

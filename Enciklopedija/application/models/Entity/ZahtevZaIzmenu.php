@@ -6,9 +6,9 @@ namespace Entity;
  * User Model
  *
  * @Entity
- * @Table(name="izmena")
+ * @Table(name="zahtev_za_izmenu")
  */
-class Izmena {
+class ZahtevZaIzmenu {
 
     /**
      * @Id
@@ -26,6 +26,11 @@ class Izmena {
      * @Column(type="time", unique=false, nullable=true)
      */
     protected $vreme;
+    
+    /**
+     * @Column(type="text", unique=false, nullable=true)
+     */
+    protected $sadrzaj;
 
     /**
      * @ManyToOne(targetEntity = "Korisnik")
@@ -33,10 +38,10 @@ class Izmena {
     protected $korisnik;
 
     /**
-     * @ManyToOne(targetEntity = "Clanak", inversedBy = "izmene")
+     * @ManyToOne(targetEntity = "Clanak")
      */
     protected $clanak;
-
+    
     public function getId() {
         return $this->id;
     }
@@ -49,12 +54,20 @@ class Izmena {
         return $this->vreme;
     }
 
+    public function getSadrzaj() {
+        return $this->sadrzaj;
+    }
+
     public function getKorisnik() {
         return $this->korisnik;
     }
 
     public function getClanak() {
         return $this->clanak;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
     }
 
     public function setDate($date) {
@@ -65,6 +78,10 @@ class Izmena {
         $this->vreme = $vreme;
     }
 
+    public function setSadrzaj($sadrzaj) {
+        $this->sadrzaj = $sadrzaj;
+    }
+
     public function setKorisnik($korisnik) {
         $this->korisnik = $korisnik;
     }
@@ -73,4 +90,7 @@ class Izmena {
         $this->clanak = $clanak;
     }
 
+
+
 }
+

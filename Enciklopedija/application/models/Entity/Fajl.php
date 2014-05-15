@@ -6,7 +6,7 @@ namespace Entity;
  * User Model
  *
  * @Entity
- * @Table(name="file")
+ * @Table(name="fajl")
  */
 class Fajl {
 
@@ -28,9 +28,9 @@ class Fajl {
     protected $sadrzaj;
 
     /**
-     * @ManyToOne(targetEntity = "Clanak")
+     * @ManyToOne(targetEntity = "Clanak", inversedBy = "fajlovi")
      */
-    protected $clanak_id;
+    protected $clanak;
 
     public function getId() {
         return $this->id;
@@ -44,8 +44,8 @@ class Fajl {
         return $this->sadrzaj;
     }
 
-    public function getClanak_id() {
-        return $this->clanak_id;
+    public function getClanak() {
+        return $this->clanak;
     }
 
     public function setNaziv($naziv) {
@@ -56,8 +56,7 @@ class Fajl {
         $this->sadrzaj = $sadrzaj;
     }
 
-    public function setClanak_id($clanak_id) {
-        $this->clanak_id = $clanak_id;
+    public function setClanak($clanak) {
+        $this->clanak = $clanak;
     }
-
 }

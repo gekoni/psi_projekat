@@ -26,6 +26,11 @@ class Uloga {
      * @Column(type = "string", length = 50, unique = true, nullable = false)
      */
     protected $uloga;
+    
+    /**
+     * @OneToMany(targetEntity = "Korisnik", mappedBy = "uloga")
+     */
+    protected $korisnici;
 
     public function setUloga($uloga) {
         $this->uloga = $uloga;
@@ -34,5 +39,9 @@ class Uloga {
 
     public function getUloga() {
         return $this->uloga;
+    }
+    
+    public function getKorisnici() {
+        return $this->korisnici;
     }
 }
