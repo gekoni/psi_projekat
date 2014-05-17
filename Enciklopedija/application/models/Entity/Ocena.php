@@ -25,12 +25,12 @@ class Ocena {
     /**
      * @ManyToOne(targetEntity = "Korisnik")
      */
-    protected $korisnik_id;
+    protected $korisnik;
 
     /**
-     * @ManyToOne(targetEntity = "Clanak")
+     * @ManyToOne(targetEntity = "Clanak", inversedBy = "ocene")
      */
-    protected $clanak_id;
+    protected $clanak;
 
     public function getId() {
         return $this->id;
@@ -40,24 +40,23 @@ class Ocena {
         return $this->ocena;
     }
 
-    public function getKorisnik_id() {
-        return $this->korisnik_id;
+    public function getKorisnik() {
+        return $this->korisnik;
     }
 
-    public function getClanak_id() {
-        return $this->clanak_id;
+    public function getClanak() {
+        return $this->clanak;
     }
 
     public function setOcena($ocena) {
         $this->ocena = $ocena;
     }
 
-    public function setKorisnik_id($korisnik_id) {
-        $this->korisnik_id = $korisnik_id;
+    public function setKorisnik($korisnik) {
+        $this->korisnik = $korisnik;
     }
 
-    public function setClanak_id($clanak_id) {
-        $this->clanak_id = $clanak_id;
+    public function setClanak($clanak) {
+        $this->clanak = $clanak;
     }
-
 }
