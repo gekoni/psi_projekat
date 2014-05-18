@@ -82,6 +82,60 @@ class Korisnik {
      */
     protected $oblastii;
     
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getUsername() {
+        return $this->username;
+    }
+
+    public function getLozinka() {
+        return $this->lozinka;
+    }
+
+    public function getIme() {
+        return $this->ime;
+    }
+
+    public function getPrezime() {
+        return $this->prezime;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getUlica() {
+        return $this->ulica;
+    }
+
+    public function getBroj() {
+        return $this->broj;
+    }
+
+    public function getGrad() {
+        return $this->grad;
+    }
+
+    public function getTelefon() {
+        return $this->telefon;
+    }
+
+    public function getUloga() {
+        return $this->uloga;
+    }
+
+    public function getClanci() {
+        return $this->clanci;
+    }
+
+    public function getOblastii() {
+        return $this->oblastii;
+    }
+
+
+    
     
 }
 
