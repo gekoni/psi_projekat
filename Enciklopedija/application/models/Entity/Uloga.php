@@ -15,6 +15,7 @@ namespace Entity;
  * @Table(name = "uloga")
  */
 class Uloga {
+
     /**
      * @Id
      * @Column(type = "integer", nullable = false)
@@ -26,7 +27,7 @@ class Uloga {
      * @Column(type = "string", length = 50, unique = true, nullable = false)
      */
     protected $uloga;
-    
+
     /**
      * @OneToMany(targetEntity = "Korisnik", mappedBy = "uloga")
      */
@@ -37,11 +38,16 @@ class Uloga {
         return $this;
     }
 
+    public function getId() {
+        return $this->id;
+    }
+
     public function getUloga() {
         return $this->uloga;
     }
-    
+
     public function getKorisnici() {
         return $this->korisnici;
     }
+
 }

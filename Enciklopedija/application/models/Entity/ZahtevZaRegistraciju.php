@@ -13,6 +13,7 @@ namespace Entity;
  *
  * @author Aleksa
  */
+
 /**
  * User Model
  *
@@ -20,6 +21,7 @@ namespace Entity;
  * @Table(name="zahtev_za_registraciju")
  */
 class ZahtevZaRegistraciju {
+
     /**
      * @Id
      * @Column(type = "integer", nullable = false)
@@ -31,12 +33,17 @@ class ZahtevZaRegistraciju {
      * @Column(type = "string", length = 50, unique = true, nullable = false)
      */
     protected $username;
-    
+
+    /**
+     * @Column(type = "string", length = 50, nullable = false)
+     */
+    protected $lozinka;
+
     /**
      * @Column(type = "string", length = 50, nullable = false)
      */
     protected $ime;
-    
+
     /**
      * @Column(type = "string", length = 50, nullable = false)
      */
@@ -46,22 +53,22 @@ class ZahtevZaRegistraciju {
      * @Column(type = "string", length = 255, unique = true, nullable = false)
      */
     protected $email;
-    
+
     /**
      * @Column(type = "string", length = 50, nullable = false)
      */
     protected $ulica;
-    
+
     /**
      * @Column(type = "integer", nullable = false)
      */
     protected $broj;
-    
+
     /**
      * @Column(type = "string", length = 50, nullable = false)
      */
     protected $grad;
-    
+
     /**
      * @Column(type = "string", length = 50, nullable = false)
      */
@@ -71,13 +78,17 @@ class ZahtevZaRegistraciju {
      * @ManyToOne(targetEntity = "Uloga")
      */
     protected $uloga;
-    
+
     public function getId() {
         return $this->id;
     }
 
     public function getUsername() {
         return $this->username;
+    }
+
+    public function getLozinka() {
+        return $this->lozinka;
     }
 
     public function getIme() {
@@ -112,12 +123,12 @@ class ZahtevZaRegistraciju {
         return $this->uloga;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
-
     public function setUsername($username) {
         $this->username = $username;
+    }
+
+    public function setLozinka($lozinka) {
+        $this->lozinka = $lozinka;
     }
 
     public function setIme($ime) {
@@ -151,6 +162,5 @@ class ZahtevZaRegistraciju {
     public function setUloga($uloga) {
         $this->uloga = $uloga;
     }
-
 
 }

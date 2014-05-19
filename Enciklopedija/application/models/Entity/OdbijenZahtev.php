@@ -13,6 +13,7 @@ namespace Entity;
  *
  * @author Aleksa
  */
+
 /**
  * User Model
  *
@@ -20,6 +21,7 @@ namespace Entity;
  * @Table(name="odbijen_zahtev")
  */
 class OdbijenZahtev {
+
     /**
      * @Id
      * @Column(type = "integer", nullable = false)
@@ -31,12 +33,12 @@ class OdbijenZahtev {
      * @Column(type = "string", length = 50, unique = true, nullable = false)
      */
     protected $username;
-    
+
     /**
      * @Column(type = "string", length = 50, nullable = false)
      */
     protected $ime;
-    
+
     /**
      * @Column(type = "string", length = 50, nullable = false)
      */
@@ -46,22 +48,22 @@ class OdbijenZahtev {
      * @Column(type = "string", length = 255, unique = true, nullable = false)
      */
     protected $email;
-    
+
     /**
      * @Column(type = "string", length = 50, nullable = false)
      */
     protected $ulica;
-    
+
     /**
      * @Column(type = "integer", nullable = false)
      */
     protected $broj;
-    
+
     /**
      * @Column(type = "string", length = 50, nullable = false)
      */
     protected $grad;
-    
+
     /**
      * @Column(type = "string", length = 50, nullable = false)
      */
@@ -71,7 +73,7 @@ class OdbijenZahtev {
      * @ManyToOne(targetEntity = "Uloga")
      */
     protected $uloga;
-    
+
     public function getId() {
         return $this->id;
     }
@@ -112,10 +114,6 @@ class OdbijenZahtev {
         return $this->uloga;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
-
     public function setUsername($username) {
         $this->username = $username;
     }
@@ -151,6 +149,5 @@ class OdbijenZahtev {
     public function setUloga($uloga) {
         $this->uloga = $uloga;
     }
-
 
 }

@@ -11,11 +11,13 @@ class Users extends CI_Controller {
 
     public function login() {
         $data['main_content'] = 'login_view';
+        $data['podaci'] = array();
         $this->load->view('template', $data);
     }
 
     public function registracija() {
         $data['main_content'] = 'registracija_view';
+        $data['podaci'] = array();
         $this->load->view('template', $data);
     }
 

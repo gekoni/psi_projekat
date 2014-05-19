@@ -21,12 +21,12 @@ class Oblast {
      * @Column(type="string", length=45, unique=false, nullable=true)
      */
     protected $naziv;
-    
+
     /**
-     * @OneToMany(targetEntity = "Clanak", mappedBy = "oblast")
+     * @OneToMany(targetEntity = "Clanak", mappedBy = "oblast", cascade={"remove"})
      */
     protected $clanci;
-    
+
     /**
      * @ManyToMany(targetEntity = "Korisnik", inversedBy = "oblasti")
      */
@@ -43,13 +43,17 @@ class Oblast {
     public function setNaziv($naziv) {
         $this->naziv = $naziv;
     }
-    
+
     public function getClanci() {
         return $this->clanci;
     }
-    
+
     public function getUrednici() {
         return $this->urednici;
     }
 
+    public function addToUrednici($urednik) {
+        $this->urednici [] = $urednik;
+        $urednik->korisnikovaOblast($this);
+    }
 }

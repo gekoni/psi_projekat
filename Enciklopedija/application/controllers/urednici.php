@@ -6,12 +6,17 @@ if (!defined('BASEPATH'))
 class Urednici extends CI_Controller {
 
     public function index() {
-        $this->dodavanje_brisanje();
+        $data['main_content'] = 'urednici_view';
+        $data['podaci'] = array();
+        $this->load->view('template', $data);
     }
 
     public function dodavanje_brisanje() {
-        $data['main_content'] = 'urednici_view';
-        $this->load->view('template', $data);
+        redirect('/urednici'); //redirect('/urednici', 'refresh');
+    }
+
+    function obrisiUrednika($Id) {
+        
     }
 
 }

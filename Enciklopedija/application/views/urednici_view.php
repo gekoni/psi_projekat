@@ -17,17 +17,23 @@
     <div class="contentTitle"><h2> Brisanje urednika </h2></div>
     <table class="tg">
         <tr>
+            <th class="tg-031e">Ime i prezime</th>
+            <th class="tg-031e">Email</th>
             <th class="tg-031e">Username</th>
             <th class="tg-031e">Oblast</th>
             <th class="tg-031e">Brisanje</th>
         </tr>
         <tr>
             <td class="tg-031e">Aleksaas</td>
+            <td class="tg-031e">Aleksaas</td>
+            <td class="tg-031e">Aleksaas</td>
             <td class="tg-031e">Java</td>
             <td class="tg-031e"><a style="cursor:pointer;">Obrisi</a></td>
         </tr>
         <tr>
-            <td class="tg-031e">SlobodanM</td>
+            <td class="tg-031e">Aleksaas</td>
+            <td class="tg-031e">Aleksaas</td>
+            <td class="tg-031e">Aleksaas</td>
             <td class="tg-031e">C++</td>
             <td class="tg-031e"><a style="cursor:pointer;">Obrisi</a></td>
         </tr>

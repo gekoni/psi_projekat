@@ -33,7 +33,7 @@ class Izmena {
     protected $korisnik;
 
     /**
-     * @ManyToOne(targetEntity = "Clanak", inversedBy = "izmene")
+     * @ManyToOne(targetEntity = "Clanak", inversedBy = "izmene", cascade={"remove"})
      */
     protected $clanak;
 

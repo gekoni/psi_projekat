@@ -48,7 +48,7 @@ class Clanak {
     protected $autor;
 
     /**
-     * @ManyToOne(targetEntity = "Oblast", inversedBy = "clanci")
+     * @ManyToOne(targetEntity = "Oblast", inversedBy = "clanci", cascade={"remove"})
      */
     protected $oblast;
     
@@ -63,7 +63,7 @@ class Clanak {
     protected $ocene;
     
     /**
-     * @OneToMany(targetEntity = "Izmena", mappedBy = "clanak")
+     * @OneToMany(targetEntity = "Izmena", mappedBy = "clanak", cascade={"remove"})
      */
     protected $izmene;
 
