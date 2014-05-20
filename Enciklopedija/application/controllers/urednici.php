@@ -11,12 +11,8 @@ class Urednici extends CI_Controller {
         $this->load->view('template', $data);
     }
 
-    public function dodavanje_brisanje() {
-        redirect('/urednici'); //redirect('/urednici', 'refresh');
-    }
-
     function obrisiUrednika($Id) {
-        
+        redirect('/urednici'); //redirect('/urednici', 'refresh');
     }
 
 }

@@ -12,7 +12,7 @@
     ?>-->
 
 
-    <?php echo form_open('registracija/btnSubmit'); ?>
+    <?php echo form_open('registracija/uspesnaRegistracija'); ?>
 
     <div class="label"> 
         <p><?php echo form_label('Korisnicko ime', 'username') ?>:<br/>

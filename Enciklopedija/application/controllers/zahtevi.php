@@ -32,7 +32,8 @@ class Zahtevi extends CI_Controller {
             $this->load->view('template', $data);
         } else {
             // vrati se nazad na stranicu sa zahtevima za izmene
-            $this->izmene();
+            //$this->izmene();
+            redirect('/zahtevi/izmene');
         }
     }
 
@@ -45,7 +46,8 @@ class Zahtevi extends CI_Controller {
             $this->load->view('template', $data);
         } else {
             // vrati se nazad na stranicu sa zahtevima za izmene
-            $this->izmene();
+            //$this->izmene();
+            redirect('/zahtevi/izmene');
         }
     }
 
@@ -73,10 +75,12 @@ class Zahtevi extends CI_Controller {
                 echo "Izmena sadrzaja clanka: \n\n";
             }
             // vrati se nazad na stranicu sa zahtevima za izmene 
-            $this->izmene();
+            //$this->izmene();
+            redirect('/zahtevi/izmene');
         } else {
             // vrati se nazad na stranicu sa zahtevima za izmene 
-            $this->izmene();
+            //$this->izmene();
+            redirect('/zahtevi/izmene');
         }
     }
 

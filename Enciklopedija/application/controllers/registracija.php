@@ -15,7 +15,7 @@ class Registracija extends CI_Controller {
         $this->load->view('template', $data);
     }
 
-    public function btnSubmit() {
+    public function uspesnaRegistracija() {
         //$this->load->library('form_validation');
             
         if ($_POST) {
@@ -108,7 +108,7 @@ class Registracija extends CI_Controller {
                 }
                 $data['main_content'] = 'uspesnaregistracija_view';
                 $data['podaci'] = array();
-                $this->load->view('template', $data);
+                $this->load->view('template', $data);            
             }
         }
     }

@@ -53,8 +53,9 @@ class Oblasti extends CI_Controller {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
                 echo "Nova oblast dodata \n\n";
             }
+            redirect('/oblasti'); //redirect('/oblasti', 'refresh');
         }
-        redirect('/oblasti'); //redirect('/oblasti', 'refresh');
+        
     }
 
     function daLiPostojiOblast($naziv) {
@@ -79,10 +80,8 @@ class Oblasti extends CI_Controller {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
                 echo "Izmena sadrzaja clanka: \n\n";
             }
-            redirect('/oblasti'); //redirect('/oblasti', 'refresh');
-        } else {
-            redirect('/oblasti'); //redirect('/oblasti', 'refresh');
-        }
+        } 
+        redirect('/oblasti'); //redirect('/oblasti', 'refresh');
     }
 
 }
