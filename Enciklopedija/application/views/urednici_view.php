@@ -1,17 +1,32 @@
 <div style="width:260px; margin:auto; padding-top: 20px; padding-bottom: 20px;">
     <div class="contentTitle"><h2> Dodavanje urednika </h2></div>
-    <div class="label"><p> Urednik </p></div>
-    <input type="text" class="field35"/>
-    <br/>
-    <br/>
-    <select style="width:10em;">  
-        <option selected="true" style="display:none;">Izaberite oblast</option>
-        <option> Java </option> 
-        <option> C++ </option> 
-    </select>
-    <br/>
-    <br/>
+
+    <?php echo form_open('urednici/dodajUrednika'); ?>
+    <div class="label">
+        <p><?php echo form_label('Korisnik', 'korisnik') ?>:<br/>
+        <div class="errorMessageBox">
+            <?php echo form_error('korisnik'); ?>
+        </div>
+        <?php
+        $options = $podaci['korisnici'];
+        echo form_dropdown('korisnici', $options);
+        ?>
+
+        <br/>
+        <br/>
+        <p><?php echo form_label('Oblast', 'oblast') ?>:<br/>
+        <div class="errorMessageBox">
+            <?php echo form_error('oblast'); ?>
+        </div>
+        <?php
+        $options2 = $podaci['oblasti'];
+        echo form_dropdown('oblasti', $options2);
+        ?>
+        <br/>
+        <br/>
+    </div>
     <input type="submit" class="button" value="Dodaj urednika"/>
+    <?php echo form_close(); ?>
     <br/>
     <br/>
     <div class="contentTitle"><h2> Brisanje urednika </h2></div>

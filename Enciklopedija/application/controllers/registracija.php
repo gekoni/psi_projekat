@@ -15,7 +15,7 @@ class Registracija extends CI_Controller {
         $this->load->view('template', $data);
     }
 
-    public function uspesnaRegistracija() {
+    public function registrujSe() {
         //$this->load->library('form_validation');
             
         if ($_POST) {

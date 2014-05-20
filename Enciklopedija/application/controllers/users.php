@@ -15,10 +15,4 @@ class Users extends CI_Controller {
         $this->load->view('template', $data);
     }
 
-    public function registracija() {
-        $data['main_content'] = 'registracija_view';
-        $data['podaci'] = array();
-        $this->load->view('template', $data);
-    }
-
 }

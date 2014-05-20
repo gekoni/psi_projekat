@@ -19,7 +19,7 @@
     <br/>
     <br/>
     <div class="label" style="text-decoration: underline;">
-        <a href="<?php echo base_url(); ?>index.php/users/registracija">Zelite da postanete korisnik?</a>
+        <a href="<?php echo base_url(); ?>index.php/registracija">Zelite da postanete korisnik?</a>
         <br/>
         <br/>
         <a href="<?php echo base_url(); ?>index.php/login/continueAsUnregistered">Nastavi dalje kao neregistrovan korisnik</a>
