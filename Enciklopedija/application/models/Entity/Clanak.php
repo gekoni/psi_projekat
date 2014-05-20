@@ -79,8 +79,8 @@ class Clanak {
         return $this->sadrzaj;
     }
 
-    public function getDate() {
-        return $this->date;
+    public function getDatum() {
+        return $this->datum;
     }
 
     public function getTime() {
@@ -111,8 +111,8 @@ class Clanak {
         $this->sadrzaj = $sadrzaj;
     }
 
-    public function setDate($date) {
-        $this->date = $date;
+    public function setDatum($datum) {
+        $this->date = $datum;
     }
 
     public function setTime($time) {
