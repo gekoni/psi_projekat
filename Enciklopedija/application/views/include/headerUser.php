@@ -1,8 +1,6 @@
 <html>
     <head>
-
         <link href="<?php echo base_url(); ?>css/black.css" rel="stylesheet">
-
     </head>
     <body>
         <div id="wrap">
@@ -14,11 +12,11 @@
             </div>
             <div div class="left">
                 <ul>
-                    <?php 
+                    <?php
                     if ($this->session->userdata('korisnik')) {
-                        $uloga = $this->session->userdata('korisnik')->getUloga()->getUloga();
-                    }
-                    else {
+                        $korisnikSession = $this->session->userdata('korisnik');
+                        $uloga = $korisnikSession['uloga'];
+                    } else {
                         $uloga = '';
                     }
                     ?>
@@ -27,20 +25,23 @@
                             <img src="<?php echo base_url(); ?>css/search.jpg" width="50px" height="50px"/>Pretraga 
                         </a>
                     </li>
-                    <?php if ($uloga == 'admin' || $uloga == 'urednik' || $uloga == 'korisnik') { ?>
-                    <li>
-                        <a href="<?php echo base_url(); ?>index.php/clanak/novi"> 
-                            Novi clanak
-                        </a>
-                    </li>
+                    
+                    <?php 
+                    var_dump($uloga);
+                    if ($uloga == 'admin' || $uloga == 'urednik' || $uloga == 'korisnik') { ?>
+                        <li>
+                            <a href="<?php echo base_url(); ?>index.php/clanak/novi"> 
+                                Novi clanak
+                            </a>
+                        </li>
                     <?php } ?>
                     <?php if ($uloga == 'admin' || $uloga == 'urednik') { ?>
-                    <li><a href="zahteviIzmene.html"> Zahtevi za izmenu </a></li>
+                        <li><a href="<?php echo base_url(); ?>index.php/zahtevi/izmene"> Zahtevi za izmenu </a></li>
                     <?php } ?>
                     <?php if ($uloga == 'admin') { ?>
-                    <li><a href="zahteviRegistracije.html"> Zahtevi za registraciju </a></li>
-                    <li><a href="urednici.html"> Urednici </a></li>
-                    <li><a href="oblasti.html"> Oblasti </a></li>
+                        <li><a href="<?php echo base_url(); ?>index.php/zahtevi/registracije"> Zahtevi za registraciju </a></li>
+                        <li><a href="<?php echo base_url(); ?>index.php/urednici"> Urednici </a></li>
+                        <li><a href="<?php echo base_url(); ?>index.php/oblasti"> Oblasti </a></li>
                     <?php } ?>
                 </ul>
             </div>

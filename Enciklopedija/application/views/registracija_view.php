@@ -175,7 +175,7 @@
 
     <br />
     <br />
-    <p><?php echo form_submit('', 'Posalji zahtev'); ?></p>
+    <p><?php echo form_submit('', 'Posalji zahtev', "class='button'"); ?></p>
     <!--<input type="submit" class="button" value="Posalji zahtev"/>-->
     <br />
     <br />

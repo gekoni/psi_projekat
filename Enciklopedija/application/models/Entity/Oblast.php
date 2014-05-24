@@ -54,10 +54,10 @@ class Oblast {
 
     public function dodajUrednika($urednik) {
         $this->urednici [] = $urednik;
-        $urednik->korisnikovaOblast($this);
     }
-    
+
     public function izbaciUrednika($urednik) {
-        return $this->urednici->removeElement($urednik);  
+        return $this->urednici->removeElement($urednik);
     }
+
 }

@@ -220,7 +220,8 @@ table,th,td {
     font-style:normal;
     height:40px;
     line-height:40px;
-    width:86px;
+    padding-left: 15px;
+    padding-right: 15px;
     text-decoration:none;
     text-align:center;
     text-shadow:1px 1px 0px #cc9f52;

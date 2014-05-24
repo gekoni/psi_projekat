@@ -5,13 +5,30 @@ if (!defined('BASEPATH'))
 
 class Oblasti extends CI_Controller {
 
+    public function __construct() {
+        parent::__construct();
+        $this->authorize('admin');
+    }
+
+    private function authorize($ulogaString) {
+        $korisnikSession = $this->session->userdata('korisnik');
+        if ($korisnikSession == NULL) {
+            exit('No direct script access allowed');
+        } else {
+            $uloga = $korisnikSession['uloga'];
+            if ($uloga != $ulogaString) {
+                redirect('/login');
+            }
+        }
+    }
+
     public function index() {
 
         $oblasti = $this->sveOblasti();
 
         $data['main_content'] = 'oblasti_view';
         $data['podaci'] = array('novi' => true, 'oblasti' => $oblasti);
-        $this->load->view('template', $data);
+        $this->load->view('templateUser', $data);
     }
 
     public function sveOblasti() {
@@ -41,7 +58,7 @@ class Oblasti extends CI_Controller {
             $data['errors'] = validation_errors();
             $data['main_content'] = 'oblasti_view';
             $data['podaci'] = array('oblasti' => $this->sveOblasti());
-            $this->load->view('template', $data);
+            $this->load->view('templateUser', $data);
         } else {
             $oblast = new Entity\Oblast();
             $oblast->setNaziv($_POST['naziv']);
@@ -55,7 +72,6 @@ class Oblasti extends CI_Controller {
             }
             redirect('/oblasti'); //redirect('/oblasti', 'refresh');
         }
-        
     }
 
     function daLiPostojiOblast($naziv) {
@@ -80,7 +96,7 @@ class Oblasti extends CI_Controller {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
                 echo "Izmena sadrzaja clanka: \n\n";
             }
-        } 
+        }
         redirect('/oblasti'); //redirect('/oblasti', 'refresh');
     }
 

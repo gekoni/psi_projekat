@@ -20,7 +20,7 @@ class Zahtevi extends CI_Controller {
 
         $data['main_content'] = 'zahteviizmene_view';
         $data['podaci'] = $izmene;
-        $this->load->view('template', $data);
+        $this->load->view('templateUser', $data);
     }
 
     public function pogledajIzmenu($izmenaId) {
@@ -29,7 +29,7 @@ class Zahtevi extends CI_Controller {
         if ($izmena != NULL) {
             $data['main_content'] = 'pregledclanka_view';
             $data['podaci'] = $izmena;
-            $this->load->view('template', $data);
+            $this->load->view('templateUser', $data);
         } else {
             // vrati se nazad na stranicu sa zahtevima za izmene
             //$this->izmene();
@@ -43,7 +43,7 @@ class Zahtevi extends CI_Controller {
         if ($original != NULL) {
             $data['main_content'] = 'pregledclanka_view';
             $data['podaci'] = $original;
-            $this->load->view('template', $data);
+            $this->load->view('templateUser', $data);
         } else {
             // vrati se nazad na stranicu sa zahtevima za izmene
             //$this->izmene();
@@ -94,7 +94,7 @@ class Zahtevi extends CI_Controller {
 
         $data['main_content'] = 'zahteviregistracije_view';
         $data['podaci'] = $registracije;
-        $this->load->view('template', $data);
+        $this->load->view('templateUser', $data);
     }
 
     public function prihvatiRegistraciju($registracijaId) {

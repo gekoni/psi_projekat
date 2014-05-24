@@ -26,7 +26,7 @@
 </p>
 <br/>
 <br/>
-<p><?php echo form_submit('', 'Dodaj oblast'); ?></p>
+<p><?php echo form_submit('', 'Dodaj oblast', "class='button'"); ?></p>
 
 <?php echo form_close(); ?>
 

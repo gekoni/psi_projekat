@@ -25,7 +25,11 @@ class Login extends CI_Controller {
         // Za update se dohvati objekat, menja se sta treba, i onda flush
         // Mozda treba persist pre flusha, nisam siguran, mrzi me sad da proveravam :)
 
-        $this->loadPage('template', 'login_view', array());
+        if ($this->session->userdata('korisnik')) {
+            $this->loadPage('templateUser', 'welcome_view', array());
+        } else {
+            $this->loadPage('template', 'login_view', array());
+        }
     }
 
     public function auth() {
@@ -62,12 +66,15 @@ class Login extends CI_Controller {
         if ($korisnik == NULL) {
             return FALSE;
         } else {
-            $this->session->set_userdata('korisnik', $korisnik);
+            $korisnikSession = array();
+            $korisnikSession['uloga'] = $korisnik->getUloga()->getUloga();
+            $korisnikSession['korisnikId'] = $korisnik->getId();
+            $this->session->set_userdata('korisnik', $korisnikSession);
             return TRUE;
         }
     }
-    
-    public function continueAsUnregistered () {
+
+    public function continueAsUnregistered() {
         $this->loadPage('templateUser', 'welcome_view', array());
     }
 

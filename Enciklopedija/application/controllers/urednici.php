@@ -5,10 +5,42 @@ if (!defined('BASEPATH'))
 
 class Urednici extends CI_Controller {
 
+    public function __construct() {
+        parent::__construct();
+    }
+
     public function index() {
+
         $data['main_content'] = 'urednici_view';
-        $data['podaci'] = array('oblasti' => $this->populatedropdownOblasti(), 'korisnici' => $this->populatedropdownKorisnici());
-        $this->load->view('template', $data);
+        $data['podaci'] = array('oblasti' => $this->populatedropdownOblasti(), 'korisnici' => $this->populatedropdownKorisnici(), 'lista' => $this->uredjivanjeLista());
+        $this->load->view('templateUser', $data);
+    }
+
+    function uredjivanjeLista() {
+        $em = $this->doctrine->em;
+        $dql = "SELECT i FROM  Entity\Oblast i";
+        $query = $em->createQuery($dql);
+        $oblasti = $query->getResult();
+
+        $lista = array();
+        for ($i = 0; $i < count($oblasti); $i++) {
+            $oblast = $oblasti[$i];
+            $urednici = $oblast->getUrednici();
+            for ($k = 0; $k < count($urednici); $k++) {
+                $urednik = $urednici[$k];
+                $element = array();
+                $element['ime_prezime'] = $urednik->getIme() . " " . $urednik->getPrezime();
+                $element['email'] = $urednik->getEmail();
+                $element['username'] = $urednik->getUsername();
+                $element['oblast'] = $oblast->getNaziv();
+                $element['oblastId'] = $oblast->getId();
+                $element['urednikId'] = $urednik->getId();
+
+                $lista [$i] = $element;
+            }
+        }
+
+        return $lista;
     }
 
     function populatedropdownKorisnici() {
@@ -17,7 +49,7 @@ class Urednici extends CI_Controller {
         $query = $em->createQuery($dql);
         $korisnici = $query->getResult();
 
-        $dropDownList[''] = 'Izaberite korisnika';    // default selection item
+        $dropDownList['none'] = 'Izaberite korisnika';    // default selection item
         if ($korisnici != NULL) {
             foreach ($korisnici as $korisnik) {
                 $dropDownList[$korisnik->getId()] = $korisnik->getIme() . ' ' . $korisnik->getPrezime();
@@ -32,7 +64,7 @@ class Urednici extends CI_Controller {
         $query = $em->createQuery($dql);
         $oblasti = $query->getResult();
 
-        $dropDownList[''] = 'Izaberite oblast';
+        $dropDownList['none'] = 'Izaberite oblast';
         if ($oblasti != NULL) {
             foreach ($oblasti as $oblast) {
                 $dropDownList[$oblast->getId()] = $oblast->getNaziv();
@@ -42,34 +74,17 @@ class Urednici extends CI_Controller {
     }
 
     function dodajUrednika() {
-        $config = array();
-        if ($_POST) {
-            $config = array(
-                array(
-                    'field' => 'korisnik',
-                    'label' => 'Korisnik',
-                    'rules' => 'required'
-                ),
-                array(
-                    'field' => 'oblast',
-                    'label' => 'Oblast',
-                    'rules' => 'required'
-            ));
-        }
-        $this->form_validation->set_message('required', 'Polje "%s" ne moze biti prazno!');
-        //$this->form_validation->set_rules($config);
 
-        if ($this->form_validation->run() == false) {
-            $data['errors'] = validation_errors();
-            $data['main_content'] = 'urednici_view';
-            $data['podaci'] = array();
-            $this->load->view('template', $data);
+        $oblastID = $_POST['oblasti'];
+        $urednikID = $_POST['korisnici'];
+        if ($oblastID == 'none' || $urednikID == 'none') {
+            $this->validateDodavanje($oblastID, $urednikID);
         } else {
-            $oblastID = $_POST['oblast'];
-            var_dump($oblastID);
-            $urednikID = $_POST['korisnik'];
             $em = $this->doctrine->em;
-            $role = $em->getRepository('Entity\Oblast')->findOneBy(array('id' => $oblastID));
+            $oblast = $em->getRepository('Entity\Oblast')->findOneBy(array('id' => $oblastID));
+            $korisnik = $em->getRepository('Entity\Korisnik')->findOneBy(array('id' => $urednikID));
+
+            $oblast->dodajUrednika($korisnik);
             $em->persist($oblast);
             try {
                 $em->flush();
@@ -77,12 +92,40 @@ class Urednici extends CI_Controller {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
                 echo "Nova oblast dodata \n\n";
             }
-            redirect('/oblasti'); //redirect('/oblasti', 'refresh');
+            redirect('/urednici');
         }
     }
 
-    function obrisiUrednika($Id) {
-        redirect('/urednici'); //redirect('/urednici', 'refresh');
+    private function validateDodavanje($oblastID, $urednikID) {
+        $podaci = array();
+        if ($oblastID == 'none') {
+            $podaci['greska_oblast'] = "Izaberite oblast!";
+        }
+        if ($urednikID == 'none') {
+            $podaci['greska_korisnik'] = "Izaberite korisnika!";
+        }
+        $data['main_content'] = 'urednici_view';
+        $podaci['oblasti'] = $this->populatedropdownOblasti();
+        $podaci['korisnici'] = $this->populatedropdownKorisnici();
+        $podaci['lista'] = $this->uredjivanjeLista();
+        $data['podaci'] = $podaci;
+        $this->load->view('templateUser', $data);
+    }
+
+    function obrisiUrednika($oblastID, $urednikID) {
+        $em = $this->doctrine->em;
+        $oblast = $em->getRepository('Entity\Oblast')->findOneBy(array('id' => $oblastID));
+        $korisnik = $em->getRepository('Entity\Korisnik')->findOneBy(array('id' => $urednikID));
+
+        $oblast->izbaciUrednika($korisnik);
+        $em->persist($oblast);
+        try {
+            $em->flush();
+        } catch (Exception $e) {
+            echo 'Caught exception: ', $e->getMessage(), "\n";
+            echo "Nova oblast dodata \n\n";
+        }
+        redirect('/urednici');
     }
 
 }
