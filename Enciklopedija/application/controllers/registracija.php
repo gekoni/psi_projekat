@@ -16,7 +16,6 @@ class Registracija extends CI_Controller {
     }
 
     public function registrujSe() {
-        //$this->load->library('form_validation');
             
         if ($_POST) {
             $config = array(

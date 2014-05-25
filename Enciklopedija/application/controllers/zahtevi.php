@@ -5,6 +5,35 @@ if (!defined('BASEPATH'))
 
 class Zahtevi extends CI_Controller {
 
+    public function __construct() {
+        parent::__construct();
+        $this->authorizeAdminUrednik();
+    }
+
+    private function authorizeAdminUrednik() {
+        $korisnikSession = $this->session->userdata('korisnik');
+        if ($korisnikSession == NULL) {
+            exit('No direct script access allowed');
+        } else {
+            $uloga = $korisnikSession['uloga'];
+            if ($uloga != 'admin' && $uloga != 'urednik') {
+                redirect('/login');
+            }
+        }
+    }
+
+    private function authorizeUser($ulogaString) {
+        $korisnikSession = $this->session->userdata('korisnik');
+        if ($korisnikSession == NULL) {
+            exit('No direct script access allowed');
+        } else {
+            $uloga = $korisnikSession['uloga'];
+            if ($uloga != $ulogaString) {
+                redirect('/login');
+            }
+        }
+    }
+
     public function index() {
         $this->izmene();
     }
@@ -12,11 +41,36 @@ class Zahtevi extends CI_Controller {
     public function izmene() {
         $em = $this->doctrine->em;
 
-        $dql = "SELECT i FROM  Entity\ZahtevZaIzmenu i";
-        $query = $em->createQuery($dql);
-        $query->setMaxResults(30);
-        $izmene = $query->getResult();
-        //var_dump($izmene);
+        $korisnikSession = $this->session->userdata('korisnik');
+        $uloga = $korisnikSession['uloga'];
+
+        if ($uloga == 'admin') {
+            $dql = "SELECT i FROM  Entity\ZahtevZaIzmenu i";
+            $query = $em->createQuery($dql);
+            $query->setMaxResults(30);
+            $izmene = $query->getResult();
+        } else {
+            // prikazi samo izmene iz oblasti koje su dodeljene trenutnom korisniku
+            $korisnikSession = $this->session->userdata('korisnik');
+            $korisnikId = $korisnikSession['korisnikId'];
+            // $ulogaNaziv = $korisnikSession['uloga'];
+            $korisnik = $em->getRepository('Entity\Korisnik')->findOneBy(array('id' => $korisnikId));
+            $oblasti = $korisnik->getOblasti();
+
+            $dql = "SELECT i FROM  Entity\ZahtevZaIzmenu i";
+            $query = $em->createQuery($dql);
+            // $query->setMaxResults(30);
+            $izmeneList = $query->getResult();
+            $izmene = array();
+            foreach ($izmeneList as $izmena) {
+                $oblast = $izmena->getClanak()->getOblast();
+                foreach ($oblasti as $oblastTekuca) {
+                    if ($oblast == $oblastTekuca) {
+                        $izmene[] = $izmena;
+                    }
+                }
+            }
+        }
 
         $data['main_content'] = 'zahteviizmene_view';
         $data['podaci'] = $izmene;
@@ -85,8 +139,9 @@ class Zahtevi extends CI_Controller {
     }
 
     public function registracije() {
-        $em = $this->doctrine->em;
+        $this->authorizeUser('admin');
 
+        $em = $this->doctrine->em;
         $dql = "SELECT i FROM  Entity\ZahtevZaRegistraciju i";
         $query = $em->createQuery($dql);
         $query->setMaxResults(30);
@@ -98,7 +153,7 @@ class Zahtevi extends CI_Controller {
     }
 
     public function prihvatiRegistraciju($registracijaId) {
-   $em = $this->doctrine->em;
+        $em = $this->doctrine->em;
         $zahtev = $em->find("Entity\ZahtevZaRegistraciju", (int) $registracijaId);
         if ($zahtev != NULL) {
             $korisnik = new Entity\Korisnik();
@@ -111,7 +166,7 @@ class Zahtevi extends CI_Controller {
             $korisnik->setGrad($zahtev->getGrad());
             $korisnik->setTelefon($zahtev->getTelefon());
             $korisnik->setEmail($zahtev->getEmail());
-            
+
             $uloga = $em->getRepository('Entity\Uloga')->findOneBy(array('uloga' => 'korisnik'));
             $korisnik->setUloga($uloga);
             $em->persist($korisnik);
@@ -145,7 +200,7 @@ class Zahtevi extends CI_Controller {
             $odbijenZahtev->setGrad($zahtev->getGrad());
             $odbijenZahtev->setTelefon($zahtev->getTelefon());
             $odbijenZahtev->setEmail($zahtev->getEmail());
-            
+
             $uloga = $em->getRepository('Entity\Uloga')->findOneBy(array('uloga' => 'korisnik'));
             $odbijenZahtev->setUloga($uloga);
             $em->persist($odbijenZahtev);

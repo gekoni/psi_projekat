@@ -1,17 +1,7 @@
 
 <div style="width: 40%; margin-left: 35%; margin-right: 35%; padding-top: 35px; padding-bottom: 35px;">
     <div class="contentTitle"><h2>Registracija novog korisnika</h2></div>
-    <!--<?php
-    if (validation_errors()) {
-        ?>
-            <div style="background: red; color: white;">
-        <?php echo validation_errors(); ?>
-            </div>
-        <?php
-    }
-    ?>-->
-
-
+   
     <?php echo form_open('registracija/registrujSe'); ?>
 
     <div class="label"> 
