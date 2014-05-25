@@ -13,14 +13,17 @@
         ?>
         <div id="wrap">
             <div id="header">
-                <a href="<?php echo base_url(); ?>index.php/login/continueAsUnregistered">
-                    <h1 style="margin-left: 70px; float: left;">JavaWiki</h1>
-                </a>
-                <?php if ($uloga != '') { ?>
-                <div class="logout-btn"><a href="<?php echo base_url(); ?>index.php/login/logout">Odjava</a></div>
-                <?php } else { ?>
-                    <div class="logout-btn"><a href="<?php echo base_url(); ?>index.php/login">Prijava</a></div>
-                <?php } ?>
+                <h1 style="margin-left: 70px; float: left;">JavaWiki</h1>
+                <div class="logout-btn">
+                    <?php
+                    if ($this->session->userdata('korisnik')) {
+                        ?>
+                        <a href="<?php echo base_url(); ?>index.php/profil">Profil</a>
+                        <a href="<?php echo base_url(); ?>index.php/login/logout">Odjava</a>
+                    <?php } else { ?>
+                        <a href="<?php echo base_url(); ?>index.php">Uloguj se</a>
+                    <?php } ?>
+                </div>
                 <div style="clear: both;"></div>
                 <h2 style="margin-left: 70px;">Multimedijalna enciklopedija</h2>
             </div>

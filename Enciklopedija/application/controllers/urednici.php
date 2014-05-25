@@ -5,8 +5,21 @@ if (!defined('BASEPATH'))
 
 class Urednici extends CI_Controller {
 
-    public function __construct() {
+     public function __construct() {
         parent::__construct();
+        $this->authorize('admin');
+    }
+
+    private function authorize($ulogaString) {
+        $korisnikSession = $this->session->userdata('korisnik');
+        if ($korisnikSession == NULL) {
+            exit('No direct script access allowed');
+        } else {
+            $uloga = $korisnikSession['uloga'];
+            if ($uloga != $ulogaString) {
+                redirect('/login');
+            }
+        }
     }
 
     public function index() {
@@ -45,7 +58,7 @@ class Urednici extends CI_Controller {
 
     function populatedropdownKorisnici() {
         $em = $this->doctrine->em;
-        $dql = "SELECT i FROM  Entity\Korisnik i";
+        $dql = "SELECT k FROM  Entity\Korisnik k JOIN k.uloga u WHERE u.uloga != 'admin'";
         $query = $em->createQuery($dql);
         $korisnici = $query->getResult();
 
@@ -83,9 +96,12 @@ class Urednici extends CI_Controller {
             $em = $this->doctrine->em;
             $oblast = $em->getRepository('Entity\Oblast')->findOneBy(array('id' => $oblastID));
             $korisnik = $em->getRepository('Entity\Korisnik')->findOneBy(array('id' => $urednikID));
+            $uloga = $em->getRepository('Entity\Uloga')->findOneBy(array('uloga' => 'urednik'));
+            $korisnik->setUloga($uloga);
 
             $oblast->dodajUrednika($korisnik);
             $em->persist($oblast);
+            $em->persist($korisnik);
             try {
                 $em->flush();
             } catch (Exception $e) {
@@ -117,6 +133,13 @@ class Urednici extends CI_Controller {
         $oblast = $em->getRepository('Entity\Oblast')->findOneBy(array('id' => $oblastID));
         $korisnik = $em->getRepository('Entity\Korisnik')->findOneBy(array('id' => $urednikID));
 
+        $clanci = $korisnik->getOblasti();
+        if ($clanci->count() == 1) {
+            $uloga = $em->getRepository('Entity\Uloga')->findOneBy(array('uloga' => 'korisnik'));
+            $korisnik->setUloga($uloga);
+            $em->persist($korisnik);
+        }
+
         $oblast->izbaciUrednika($korisnik);
         $em->persist($oblast);
         try {
@@ -125,6 +148,7 @@ class Urednici extends CI_Controller {
             echo 'Caught exception: ', $e->getMessage(), "\n";
             echo "Nova oblast dodata \n\n";
         }
+
         redirect('/urednici');
     }
 
