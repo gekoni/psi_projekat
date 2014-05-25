@@ -2,15 +2,15 @@
     <div class="contentTitle"><h2> Istorijat clanka </h2></div>
     <br/>
     <div class="contentTitle"> Java Virtual Machine </div>
-    <span class="label"> Datum </span> &nbsp;  16.03.2014
+    <span class="label"> Datum </span> &nbsp;  <?php echo $clanak->getDatum()->format('d-m-Y'); ?>
     <br/>
-    <span class="label"> Autor </span> &nbsp; Aleksa Stancetic
+    <span class="label"> Autor </span> &nbsp; <?php echo $clanak->getAutor()->getUsername(); ?>
     <br/>
-    <span class="label"> Oblast </span> &nbsp;  Java
+    <span class="label"> Oblast </span> &nbsp;  <?php echo $clanak->getOblast()->getNaziv(); ?>
     <br/>
-    <span class="label"> Ocena </span> &nbsp;  5
+    <span class="label"> Ocena </span> &nbsp;  <?php echo $clanak->getOcena(); ?>
     <br/>
-    <span class="label"> Broj pregleda </span> &nbsp;  101
+    <span class="label"> Broj pregleda </span> &nbsp;  <?php echo $clanak->getBrPregleda(); ?>
     <br/>
     <br/>
     <table class="tg">
@@ -18,13 +18,11 @@
             <th class="tg-031e">Koautor</th>
             <th class="tg-031e">Datum izmene</th>
         </tr>
+        <?php foreach ($izmene as $izmena) { ?>
         <tr>
-            <td class="tg-031e">Aleksaas</td>
-            <td class="tg-031e">16.03.2014</td>
+            <td class="tg-031e"><?php echo $izmena->getKorisnik()->getUsername(); ?></td>
+            <td class="tg-031e"><?php echo $izmena->getDate()->format('d-m-Y'); ?></td>
         </tr>
-        <tr>
-            <td class="tg-031e">SlobodanM</td>
-            <td class="tg-031e">15.03.2014</td>
-        </tr>
+        <?php } ?>
     </table>
 </div>

@@ -1,24 +1,31 @@
-<div style="width: 30%; margin-left: 40%; margin-right: 30%; padding-top: 20px; padding-bottom: 20px;">
+<div style="width: 40%; margin-left: 35%; margin-right: 35%; padding-top: 20px; padding-bottom: 20px;">
+    <?php echo validation_errors('<p class="errorMessageBox">', '</p>'); ?>
+    <?php echo form_open('clanak/noviSubmit'); ?>
+    <div class="label"><p>Naslov</p></div>
+    <?php echo form_input('naslov', set_value('naslov')); ?> 
+    <br/>
+    <br/>
+    <select name="oblast" style="width:10em;">  
+        <?php foreach ($oblasti as $oblast) { ?>
+            <option> <?php echo $oblast->getNaziv(); ?> </option> 
+        <?php } ?>
+    </select>
+    <br/>
+    <br/>
+    <textarea rows="10" cols="70" name="sadrzaj"></textarea>
+    <br/>
+    <br/>
+    <input type="submit" class="button" value="Kreiraj clanak"/>
+    <?php echo form_close(); ?>
 
-    <form>
-        <div class="contentTitle"><h2> Novi clanak </h2></div>
-        <br/>
-        <div class="label"><p> Naslov </p></div>
-        <input type="text" class="field35"/>
-        <br/>
-        <br/>
-        <select style="width:10em;">  
-            <option selected="true" style="display:none;">Izaberite oblast</option>
-            <option> Java </option> 
-            <option> C++ </option> 
-        </select>
-        <br/>
-        <br/>
-        <div class="label"><p> Sadrzaj </p></div>
-        <textarea rows="10" cols="50" > </textarea>
-        <br/>
-        <br/>
-        <input type="submit" class="button" value="Kreiraj clanak"/>
+    <?php echo form_open_multipart('clanak/do_upload'); ?>
 
-    </form>
+    <input type="file" name="userfile" size="20" />
+
+    <br /><br />
+
+    <input type="submit" value="Upload" />
+
+</form>
+
 </div>

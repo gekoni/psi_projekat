@@ -178,5 +178,14 @@ class Korisnik {
     public function korisnikovaOblast($oblast) {
         $this->oblasti[] = $oblast;
     }
+    
+    public function checkIfUrednik($oblast) {
+        foreach ($this->oblasti as $my_oblast) {
+            if ($oblast->getNaziv() == $my_oblast->getNaziv()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

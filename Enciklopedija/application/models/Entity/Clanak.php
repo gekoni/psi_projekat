@@ -102,6 +102,23 @@ class Clanak {
     public function getIzmene() {
         return $this->izmene;
     }
+    
+    public function getOcena () {
+        $suma = 0;
+        $i = 0;
+        foreach ($this->ocene as $ocena) {
+            $i += 1;
+            $suma += $ocena->getOcena();
+        }
+        if ($i != 0)  {
+            return $suma / $i; 
+            
+        }
+        else { 
+            return 0; 
+            
+        }
+    }
 
     public function setNaslov($naslov) {
         $this->naslov = $naslov;
@@ -129,6 +146,23 @@ class Clanak {
 
     public function setOblast($oblast) {
         $this->oblast = $oblast;
+    }
+    
+    public function oceni ($em, $ocena, $korisnik) {
+        $ocena_obj = $em->getRepository('Entity\Ocena')->
+                findOneBy(array('korisnik' => $korisnik, 'clanak' => $this));
+        if ($ocena_obj != NULL) {
+            $ocena_obj->setOcena($ocena);
+        }
+        else {
+            $ocena_obj = new Ocena();
+            $ocena_obj->setKorisnik($korisnik);
+            $ocena_obj->setOcena($ocena);
+            $ocena_obj->setClanak($this);    
+        }
+        $em->persist($ocena_obj); 
+        $em->flush();
+        return TRUE;
     }
 
 }

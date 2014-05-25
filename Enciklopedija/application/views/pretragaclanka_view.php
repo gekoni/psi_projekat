@@ -3,7 +3,13 @@
     <?php echo form_open('clanak/pretragaSubmit'); ?>
 
     <div class="label"><p> Naslov </p></div>
-    <?php echo form_input('naslov', set_value('naslov')); ?> 
+    <?php
+    $data = array(
+              'name'        => 'naslov',
+              'value'       => $naslov
+            );
+    ?>
+    <?php echo form_input($data); ?> 
     <br />
     <br />
 
@@ -15,30 +21,33 @@
     </select>
     <br />
     <br />
-
+    <?php
+    $data = array(
+              'name'        => 'sadrzaj',
+              'value'       => $sadrzaj
+            );
+    ?>
     <div class="label"><p> Sadrzaj </p></div>
-    <?php echo form_input('sadrzaj', set_value('sadrzaj')); ?> 
+    <?php echo form_input($data); ?> 
     <br />
-
+    <br />
     <div class="label"><p> Autor </p></div>
-    <?php echo form_input('autor', set_value('autor')); ?> 
+    <?php
+    $data = array(
+              'name'        => 'autor',
+              'value'       => $autor
+            );
+    ?>
+    <div class="label"><p> Sadrzaj </p></div>
+    <?php echo form_input($data); ?> 
     <br />
-
-    <div class="label"><p> Datum </p></div>
-    <input type="text" class="field35"/> 
-    <br />
-
-    <div class="label"><p> Rejting </p></div>
-    <input type="text" class="field35"/> 
-    <br />
-
     <br />
     <br />
     <?php
     $config = array(
         'value' => 'Pretraga',
         'class' => 'button',
-        'style' => 'margin-left: 90px;'
+        'style' => 'margin-left: 25px;'
     );
     echo form_submit($config);
     ?>
@@ -63,8 +72,12 @@
                 <td class="tg-031e"><?php echo $clanak->getAutor()->getUsername(); ?></td>
                 <td class="tg-031e"><?php echo $clanak->getOblast()->getNaziv(); ?></td>
                 <td class="tg-031e"><?php echo $clanak->getDatum()->format('d-m-Y'); ?></td>
-                <td class="tg-031e"><img src="<?php echo base_url(); ?>css/view-article.png" width="30px" height="30px" style="cursor:pointer;"/></td>
+                <td class="tg-031e">
+                    <a href="<?php echo base_url(); ?>index.php/clanak/pregled?idClanka=<?php echo $clanak->getId(); ?>">
+                        <img src="<?php echo base_url(); ?>css/view-article.png" width="30px" height="30px" style="cursor:pointer;"/>
+                    </a>
+                </td>
             </tr>
         <?php } ?>
     </table>
-<?php } ?>
+<?php } 
