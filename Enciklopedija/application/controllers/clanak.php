@@ -48,13 +48,13 @@ class Clanak extends CI_Controller {
         if ($korisnik->checkIfUrednik($clanak->getOblast()) Or $korisnik->getUloga() == 'admin') {
             $clanak->setSadrzaj($sadrzaj);
             $em->persist($clanak);
-            
+
             $izmena = new Entity\Izmena();
             $izmena->setClanak($clanak);
             $izmena->setKorisnik($korisnik);
-            //$izmena->setDate(date('Y-m-d', strtotime(time())));
+            $izmena->setDate(new DateTime());
             $em->persist($izmena);
-            
+
             $em->flush();
             $poruka = 'Uspesno ste izmenili clanak.';
         } else {
@@ -62,7 +62,7 @@ class Clanak extends CI_Controller {
             $zahtev->setClanak($clanak);
             $zahtev->setKorisnik($korisnik);
             $zahtev->setSadrzaj($sadrzaj);
-            $zahtev->setDate(date('Y-m-d', strtotime(time())));
+            $zahtev->setDate(new DateTime());
             $em->persist($zahtev);
             $em->flush();
             $poruka = 'Vasa izmena ceka odobrenje urednika.';
@@ -122,6 +122,7 @@ class Clanak extends CI_Controller {
             $clanak->setBrpregleda(0);
             $clanak->setOblast($oblast);
             $clanak->setSadrzaj($sadrzaj);
+            $clanak->setDatum(new DateTime());
 
             $em->persist($clanak);
             $em->flush();
@@ -156,7 +157,7 @@ class Clanak extends CI_Controller {
 
     public function pretragaIndex() {
         $this->loadPage('templateUser', 'pretragaclanka_view', array('clanci' => NULL, 'oblasti' => $this->oblasti
-                , 'naslov' => '', 'autor' => '', 'sadrzaj' => ''));
+            , 'naslov' => '', 'autor' => '', 'sadrzaj' => ''));
     }
 
     public function pretragaSubmit() {
@@ -197,27 +198,7 @@ class Clanak extends CI_Controller {
         }
 
         $this->loadPage('templateUser', 'pretragaclanka_view', array('clanci' => $clanci, 'oblasti' => $this->oblasti
-                , 'naslov' => $naslov, 'autor' => $autor_name, 'sadrzaj' => $sadrzaj));
-    }
-
-    public function do_upload() {
-        $config['upload_path'] = './uploads/';
-        $config['allowed_types'] = 'gif|jpg|png|pdf|doc|docx|mpeg|mpg';
-        $config['max_size'] = '100';
-        $config['max_width'] = '1024';
-        $config['max_height'] = '768';
-
-        $this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload()) {
-            $error = array('error' => $this->upload->display_errors());
-
-            $this->novi();
-        } else {
-            $data = array('upload_data' => $this->upload->data());
-
-            $this->pretragaIndex();
-        }
+            , 'naslov' => $naslov, 'autor' => $autor_name, 'sadrzaj' => $sadrzaj));
     }
 
     private function loadPage($templateName, $pageName, $dataArray) {

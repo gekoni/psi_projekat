@@ -18,14 +18,6 @@
     <input type="submit" class="button" value="Kreiraj clanak"/>
     <?php echo form_close(); ?>
 
-    <?php echo form_open_multipart('clanak/do_upload'); ?>
-
-    <input type="file" name="userfile" size="20" />
-
-    <br /><br />
-
-    <input type="submit" value="Upload" />
-
 </form>
 
 </div>

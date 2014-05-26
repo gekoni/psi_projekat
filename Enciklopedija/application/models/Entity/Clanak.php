@@ -129,7 +129,7 @@ class Clanak {
     }
 
     public function setDatum($datum) {
-        $this->date = $datum;
+        $this->datum = $datum;
     }
 
     public function setTime($time) {
