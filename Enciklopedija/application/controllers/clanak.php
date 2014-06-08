@@ -75,6 +75,9 @@ class Clanak extends CI_Controller {
         $idClanka = $this->input->get('idClanka');
         $em = $this->doctrine->em;
         $clanak = $em->find("Entity\Clanak", $idClanka);
+        $clanak->setBrpregleda($clanak->getBrpregleda() + 1);
+        $em->persist($clanak);
+        $em->flush();
         $this->loadPage('templateUser', 'pregledclanka_view', array('clanak' => $clanak, 'poruka' => ''));
     }
 
