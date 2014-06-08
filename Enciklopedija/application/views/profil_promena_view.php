@@ -101,17 +101,17 @@
         </p>
     </div>
 
-    <br />
+    <br /> <?php if (isset($podaci['uspesna_izmena'])) {
+        ?>
+        <p>Podaci su uspesno izmenjeni</p>
+    <?php }
+    ?>
     <br />
     <p><?php echo form_submit('', 'Promeni podatke', "class='button'"); ?></p>
     <br />
     <?php echo form_close(); ?>
 
-    <?php if (isset($podaci['uspesna_izmena'])) {
-        ?>
-        <p>Podaci su uspesno izmenjeni</p>
-    <?php }
-    ?>
+
     <br />
     <br />
 
@@ -164,15 +164,15 @@ echo form_password($data_form);
 </p>
 </div>
 
-<br />
+<br /><?php if (isset($podaci['uspesna_izmena_lozinke'])) {
+    ?>
+    <p>Lozinka je uspesno promenjena</p>
+<?php }
+?>
 <br />
 <p><?php echo form_submit('', 'Promeni lozinku', "class='button'"); ?></p>
 <br />
 <?php echo form_close(); ?>
 
-<?php if (isset($podaci['uspesna_izmena_lozinke'])) {
-    ?>
-    <p>Lozinka je uspesno promenjena</p>
-<?php }
-?>
+
 </div>

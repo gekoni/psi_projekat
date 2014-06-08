@@ -97,7 +97,7 @@ class Oblasti extends CI_Controller {
                 echo "Izmena sadrzaja clanka: \n\n";
             }
         }
-        redirect('/oblasti'); //redirect('/oblasti', 'refresh');
+//        /redirect('/oblasti'); //redirect('/oblasti', 'refresh');
     }
 
 }

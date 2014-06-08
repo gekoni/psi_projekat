@@ -28,7 +28,7 @@ class Ocena {
     protected $korisnik;
 
     /**
-     * @ManyToOne(targetEntity = "Clanak", inversedBy = "ocene")
+     * @ManyToOne(targetEntity = "Clanak", inversedBy = "ocene", cascade={"remove"})
      */
     protected $clanak;
 

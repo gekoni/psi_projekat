@@ -80,20 +80,22 @@ class Clanak extends CI_Controller {
 
     public function oceni() {
         $ocena = $this->input->post('ocena');
-
         $idClanka = $this->input->post('idClanka');
         $em = $this->doctrine->em;
         $clanak = $em->find("Entity\Clanak", $idClanka);
-
-        $korisnikSession = $this->session->userdata('korisnik');
-        $korisnikId = $korisnikSession['korisnikId'];
-        $korisnik = $em->find("Entity\Korisnik", $korisnikId);
-
-        $isOk = $clanak->oceni($em, $ocena, $korisnik);
-        if ($isOk) {
-            $poruka = "Uspesno ste ocenili clanak ocenom $ocena";
+        if ($ocena == 'Ocenite clanak') {
+            $poruka = 'Izaberite ocenu iz liste!';
         } else {
-            $poruka = 'Greska prilikom ocene clanka.';
+            $korisnikSession = $this->session->userdata('korisnik');
+            $korisnikId = $korisnikSession['korisnikId'];
+            $korisnik = $em->find("Entity\Korisnik", $korisnikId);
+
+            $isOk = $clanak->oceni($em, $ocena, $korisnik);
+            if ($isOk) {
+                $poruka = "Uspesno ste ocenili clanak ocenom $ocena";
+            } else {
+                $poruka = 'Greska prilikom ocene clanka.';
+            }
         }
         $this->loadPage('templateUser', 'pregledclanka_view', array('clanak' => $clanak, 'poruka' => $poruka));
     }

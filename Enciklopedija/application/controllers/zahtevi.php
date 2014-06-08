@@ -81,8 +81,11 @@ class Zahtevi extends CI_Controller {
         $em = $this->doctrine->em;
         $izmena = $em->find("Entity\ZahtevZaIzmenu", (int) $izmenaId);
         if ($izmena != NULL) {
+            $clanak = $izmena->getClanak();
+            $clanak->setSadrzaj($izmena->getSadrzaj());
+
             $data['main_content'] = 'pregledclanka_view';
-            $data['podaci'] = $izmena;
+            $data['podaci'] = array('clanak' => $clanak, 'poruka' => '', 'izmenaPregled' => true);
             $this->load->view('templateUser', $data);
         } else {
             // vrati se nazad na stranicu sa zahtevima za izmene
@@ -96,7 +99,7 @@ class Zahtevi extends CI_Controller {
         $original = $em->find("Entity\Clanak", (int) $originalId);
         if ($original != NULL) {
             $data['main_content'] = 'pregledclanka_view';
-            $data['podaci'] = $original;
+            $data['podaci'] = array('clanak' => $original, 'poruka' => '');
             $this->load->view('templateUser', $data);
         } else {
             // vrati se nazad na stranicu sa zahtevima za izmene

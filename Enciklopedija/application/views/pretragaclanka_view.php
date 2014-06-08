@@ -38,7 +38,7 @@
               'value'       => $autor
             );
     ?>
-    <div class="label"><p> Sadrzaj </p></div>
+    <!--<div class="label"><p> Sadrzaj </p></div>-->
     <?php echo form_input($data); ?> 
     <br />
     <br />

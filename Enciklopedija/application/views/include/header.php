@@ -8,7 +8,18 @@
     </head>
     <body>
         <div id="wrap">
-            <div id="header">
-                <h1 style="margin-left: 70px;">JavaWiki</h1>
+                   <div id="header">
+                <h1 style="margin-left: 70px; float: left;">JavaWiki</h1>
+                <div class="logout-btn">
+                    <?php
+                    if ($this->session->userdata('korisnik')) {
+                        ?>
+                        <a href="<?php echo base_url(); ?>index.php/profil">Profil</a>
+                        <a href="<?php echo base_url(); ?>index.php/login/logout">Odjava</a>
+                    <?php } else { ?>
+                        <a href="<?php echo base_url(); ?>index.php">Uloguj se</a>
+                    <?php } ?>
+                </div>
+                <div style="clear: both;"></div>
                 <h2 style="margin-left: 70px;">Multimedijalna enciklopedija</h2>
             </div>

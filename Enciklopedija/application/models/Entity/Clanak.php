@@ -58,7 +58,7 @@ class Clanak {
     protected $fajlovi;
     
     /**
-     * @OneToMany(targetEntity = "Ocena", mappedBy = "clanak")
+     * @OneToMany(targetEntity = "Ocena", mappedBy = "clanak", cascade={"remove"})
      */
     protected $ocene;
     
